@@ -1,0 +1,34 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% block content %}
+
+<h3>Advanced AI Prediction</h3>
+
+<div class="card p-4 shadow">
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label>Upload Test Record (.pkl)</label>
+        <input type="file" name="input_file" class="form-control" required>
+    </div>
+
+    <button class="btn btn-primary mt-3">Run Prediction</button>
+</form>
+
+{% if result %}
+<div class="alert alert-success mt-4">
+    <p><b>Predicted Glucose Level:</b> {{ result }}</p>
+
+    {% if actual %}
+    <p><b>Actual Glucose Level:</b> {{ actual }}</p>
+    {% endif %}
+
+    <p><b>Confidence Score:</b> {{ confidence|floatformat:2 }}</p>
+</div>
+{% endif %}
+
+</div>
+
+{% endblock %}
